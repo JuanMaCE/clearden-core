@@ -1,10 +1,11 @@
 from fastapi.testclient import TestClient
 
+from auth.infrastructure.in_memory_user_repository import InMemoryUserRepository
 from main import create_app
 
 
 def test_register_endpoint():
-    client = TestClient(create_app())
+    client = TestClient(create_app(InMemoryUserRepository()))
 
     response = client.post("/auth/register", json={"email": "ana@example.com", "password": "secreto123"})
     assert response.status_code == 201

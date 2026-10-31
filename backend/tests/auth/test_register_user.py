@@ -11,6 +11,9 @@ class FakeHasher(PasswordHasher):
     def hash(self, plain: str) -> str:
         return f"hashed:{plain}"
 
+    def verify(self, plain: str, hashed: str) -> bool:
+        return hashed == f"hashed:{plain}"
+
 
 @pytest.fixture
 def users() -> InMemoryUserRepository:
